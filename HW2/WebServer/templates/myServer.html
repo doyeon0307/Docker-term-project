@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Records</title>
+</head>
+<body>
+    <h1>Student Records Inquiry</h1>
+    <form method="POST">
+        <input type="text" name="student_id" placeholder="Student ID">
+        <button type="submit">Search</button>
+    </form>
+    {% if student %}
+        <h2>Student Record</h2>
+        <ul>
+            <li>Student ID: {{ student['SID'] }}</li>
+            <li>Name: {{ student['Name'] }}</li>
+            <li>Birthdate: {{ student['Birth_date'] }}</li>
+            <li>Department: {{ student['Department'] }}</li>
+        </ul>
+    {% elif student is not none %}
+        <p>Error: No such student..</p>
+    {% endif %}
+</body>
+</html>
