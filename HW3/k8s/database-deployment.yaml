@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mydatabase
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mydatabase
+  template:
+    metadata:
+      labels:
+        app: mydatabase
+    spec:
+      containers:
+      - name: mydatabase
+        image: dodo037/database_image:latest
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "password"
+        - name: MYSQL_DATABASE
+          value: "myDatabase"
+        - name: MYSQL_USER
+          value: "user"
+        - name: MYSQL_PASSWORD
+          value: "password"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mydatabase
+spec:
+  selector:
+    app: mydatabase
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
